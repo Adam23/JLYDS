@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="JLYDS"
+  id="myeclipse.1408085348575"
+  context-root="/JLYDS"
+  j2ee-spec="5.0"
+  archive="JLYDS.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

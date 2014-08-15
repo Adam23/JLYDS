@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<link type="text/css" rel="stylesheet" href="style/metro/easyui.css">
+	<link type="text/css" rel="stylesheet" href="style/icon.css">
+	<script type="text/javascript" src="script/jquery.min.js"></script>
+	<script type="text/javascript" src="script/jquery.easyui.min.js"></script>
+	
+	<script>
+		$(function(){
+			$("#treeProc").tree({
+				onClick : function(node){
+					console.info(node);
+					var isExists = $("#tabContainer").tabs("exists" , node.text);
+					//判断是否存在指定的页签
+					if(isExists == true){
+						$("#tabContainer").tabs("select" , node.text);
+					}else{
+						if(node.attributes.href != null){
+							$("#tabContainer").tabs("add" , {
+								title :  node.text,
+								content : "<iframe src = '" + node.attributes.href + "' width='100%' height='97%' style='border:0px'></iframe>",
+								closable : true,
+								selected: true,
+								border : false
+							}); 
+						}
+					}
+				}
+			})
+		})
+	</script>
+</head>
+<body class = "easyui-layout" >
+	<div style = "height:100px" data-options = "region:'north'">
+		<img alt="" src="images/topbar.png" style = "width:100%;height:95%">
+	</div>
+	<div style = "width:300px" data-options = "region:'west' , split :true , title : '功能清单'" >
+		<div class="easyui-accordion" data-options = "fit:true,border:false">
+			<div title = "业务办理">
+				<ul class="easyui-tree" id = "treeProc">
+					<li>
+						<span>业务办理</span>
+						<ul>
+							<li>餐具采购</li>
+							<li>餐具配送</li>
+							<li>餐具回收</li>
+						</ul>
+					</li>
+					<li data-options = "attributes:{href : 'customers.html'}">
+						<span>客户管理</span>
+					</li>
+				</ul>
+			</div>
+			<div title = "查询与统计">
+				<ul class="easyui-tree" id = "treeTotal">
+					<li>
+						<span>数据查询</span>
+						<ul>
+							<li>查询当前库存</li>
+							<li>查询业务流水</li>							
+						</ul>
+					</li>
+					<li>
+						<span>汇总报表</span>
+						<ul>
+							<li>业务统计报表 </li>
+							<li>财务统计报表</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div title = "系统管理">
+				<ul class="easyui-tree" id = "treeSys">
+					<li><span>修改密码</span></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div data-options = "region: 'center'">
+		<div class="easyui-tabs" data-options="fit:true" id = "tabContainer">
+			<div title = "首页 ">
+				<img alt="" src="images/welcome.jpg" style = "width:100%;height:98%" >
+			</div>
+		</div>
+	</div>
+</body>
+</html>

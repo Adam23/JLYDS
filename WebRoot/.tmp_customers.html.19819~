@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<style type="text/css">
+		#frmCustomer div {
+			margin : 5px;
+		}
+		#frmCustomer input{
+			width : 150px
+		}
+		input , select , textarea{
+			font-size : 12px;
+		}
+	</style>
+	<link type="text/css" rel="stylesheet" href="style/metro/easyui.css">
+	<link type="text/css" rel="stylesheet" href="style/icon.css">
+	<script type="text/javascript" src="script/jquery.min.js"></script>
+	<script type="text/javascript" src="script/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="script/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript">
+
+		//验证中文
+		$.extend($.fn.validatebox.defaults.rules,{
+			validChinese : {
+				validator : function(value , params){
+					var regex = /^[\u4e00-\u9fa5]+$/;
+					var result = regex.test(value);
+					return result;
+				},
+				message : "必须输入中文"
+			}
+		});
+		
+		
+		//正则表达式验证
+		$.extend($.fn.validatebox.defaults.rules,{
+			validRegex : {
+				validator : function(value , params){
+					var regex = params[0];
+					var result = regex.test(value);
+					return result;
+				},
+				message : "{1}"
+			}
+		});
+		
+		$(function(){
+			$("#gridCustomer").datagrid({
+				url : "#",
+				fit : true,
+				border : false,
+				singleSelect:true,
+				columns : [
+					[
+					 	{field : "customerId" , title : "客户编号" , hidden : true},
+					 	{field : "customerName" , title : "客户名称" , width : 100},
+					 	{field : "customerContact" , title : "联系人" , width : 100} ,					 	
+					 	{field : "customerPhone" , title : "联系电话" , width : 100},
+					 	{field : "customerAddress" , title : "送货地址" , width : 200},
+					 	{field : "state" , title : "合作状态" , width : 100}
+					 ]
+				],
+				toolbar : [
+					{
+						text : "新增客户" , iconCls : "icon-add" , handler : function(){
+							$("#dlgForm").css("display" , "block");
+							$("#dlgForm").dialog({
+								title : "新增客户",
+								width : 300,
+								height : 250 , 
+								modal : true
+							})
+						}
+					},
+					{
+						text : "更新资料" , iconCls : "icon-edit" , handler : function(){
+							$("#dlgForm").css("display" , "block");
+							$("#dlgForm").dialog({
+								title : "更新客户资料",
+								width : 300,
+								height : 250 , 
+								modal : true
+							})
+						}
+					},
+					'-',
+					{
+						text : "终止合作" , iconCls : "icon-remove" , handler : function(){
+							$("#dlgReason").css("display" , "block");
+							$("#dlgReason").dialog({
+								title : "与客户终止合作",
+								width : 280,
+								height : 200 , 
+								modal : true
+							})
+						}
+					}
+				],
+				pagination : true 
+			});
+		})
+		
+		
+	</script>
+</head>
+<body class = "easyui-layout" >
+	<div data-options = "region: 'center'">
+		<table id="gridCustomer"></table>
+	</div>
+	
+	<div id = "dlgForm" style = "display:none ; padding:5px">
+		<form id="frmCustomer" method="post">
+			<div>
+				<label>客户名称:</label>
+					<input class="easyui-validatebox" type="text" name="customerId" id = "customerId" data-options="width:150" />
+			</div>
+			
+			<div>
+				<label>联 系 人:</label>
+					<input class="easyui-validatebox" type="text" name="customerContact" id = "customerContact"  data-options="width:150"/>
+			</div>
+			
+			<div>
+				<label>联系电话:</label>
+					<input class="easyui-validatebox" type="text" name="customerPhone" id = "customerPhone"  data-options="width:150"/>
+			</div>
+			
+			<div>
+				<label style="vertical-align: top">配送地址:</label>
+					<textarea style = "width:150px;height:50px"></textarea>
+			</div>
+			
+			<div style = "margin:10px 0px 0px 70px" >
+				<a id="btnCustomerSave" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">保存</a>
+				<a id="btnCustomerCancel" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">重置</a>
+			</div>
+		</form>
+	</div>
+	
+	<div id = "dlgReason" style = "display:none ; padding:5px">
+		<div>
+			<label style="vertical-align: top">客户姓名:</label>
+			<label style="vertical-align: top">保定会馆</label>
+		</div>
+		
+		<div>
+			<label style="vertical-align: top">终止原因:</label>
+			<textarea style = "width:150px;height:50px">无法及时付款！</textarea>
+		</div>
+		
+		<div style = "margin:10px 0px 0px 80px" >
+			<a id="btnReason" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">确定</a>
+			<a id="btnReasonCancel" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">确定</a>
+		</div>
+	</div>
+</body>
+</html>
