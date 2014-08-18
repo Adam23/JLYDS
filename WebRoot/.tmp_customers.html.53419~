@@ -20,6 +20,10 @@
 	<script type="text/javascript" src="script/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="script/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript">
+		
+		$(function(){
+			
+		})
 
 		//验证中文
 		$.extend($.fn.validatebox.defaults.rules,{
@@ -46,21 +50,9 @@
 			}
 		});
 		
-		//phone验证
-		$.extend($.fn.validatebox.defaults.rules,{
-			validPhone : {
-				validator : function(value , params){
-					var regex =/(^1[3-8]\d{9}$)|(^\d{3,4}-\d{7,8}$)/;
-					var result = regex.test(value);
-					return result;
-				},
-				message : "请输入有效的电话号码"
-			}
-		});
-		
 		$(function(){
 			$("#gridCustomer").datagrid({
-				url : "findallc.action",
+				url : "findallc",
 				fit : true,
 				border : false,
 				singleSelect:true,
@@ -71,21 +63,12 @@
 					 	{field : "customerContact" , title : "联系人" , width : 100} ,					 	
 					 	{field : "customerPhone" , title : "联系电话" , width : 100},
 					 	{field : "customerAddress" , title : "送货地址" , width : 200},
-					 	{field : "isvalid" , title : "合作状态" , width : 100 ,formatter:function(value,row,index){
-							if(value == 0){
-					 			return "终止合作";
-					 		}else if(value == 1){
-					 			return "正在合作";
-					 		}else{
-					 			return "状态消失在喵星了";
-					 		}
-						}}
+					 	{field : "state" , title : "合作状态" , width : 100}
 					 ]
 				],
 				toolbar : [
 					{
 						text : "新增客户" , iconCls : "icon-add" , handler : function(){
-							$("#gridCustomer").attr("mode","save");
 							$("#dlgForm").css("display" , "block");
 							$("#dlgForm").dialog({
 								title : "新增客户",
@@ -97,7 +80,6 @@
 					},
 					{
 						text : "更新资料" , iconCls : "icon-edit" , handler : function(){
-							$("#gridCustomer").attr("mode","update");
 							$("#dlgForm").css("display" , "block");
 							$("#dlgForm").dialog({
 								title : "更新客户资料",
@@ -124,9 +106,6 @@
 			});
 		})
 		
-		$(function(){
-			$("#btnCustomerSave").bind
-		})
 		
 	</script>
 </head>
@@ -136,25 +115,25 @@
 	</div>
 	
 	<div id = "dlgForm" style = "display:none ; padding:5px">
-		<form id="frmCustomer" method="post" mode="">
+		<form id="frmCustomer" method="post">
 			<div>
 				<label>客户名称:</label>
-					<input class="easyui-validatebox" type="text" name="customerName" id = "customerName" data-options="width:150, required :true" />
+					<input class="easyui-validatebox" type="text" name="customerName" id = "customerId" data-options="width:150" />
 			</div>
 			
 			<div>
 				<label>联 系 人:</label>
-					<input class="easyui-validatebox" type="text" name="customerContact" id = "customerContact"  data-options="width:150, required :true"/>
+					<input class="easyui-validatebox" type="text" name="customerContact" id = "customerContact"  data-options="width:150"/>
 			</div>
 			
 			<div>
 				<label>联系电话:</label>
-					<input class="easyui-validatebox" type="text" name="customerPhone" id = "customerPhone"  data-options="width:150, required :true"/>
+					<input class="easyui-validatebox" type="text" name="customerPhone" id = "customerPhone"  data-options="width:150"/>
 			</div>
 			
 			<div>
 				<label style="vertical-align: top">配送地址:</label>
-					<textarea class="easyui-validatebox" name = "customerAddress" id = "customerAddress" data-options = "required :true" style = "width:150px;height:50px"></textarea>
+					<textarea style = "width:150px;height:50px"></textarea>
 			</div>
 			
 			<div style = "margin:10px 0px 0px 70px" >

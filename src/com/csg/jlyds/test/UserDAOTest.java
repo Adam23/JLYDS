@@ -3,6 +3,7 @@ package com.csg.jlyds.test;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -18,10 +19,7 @@ public class UserDAOTest {
 	public void testFindCustomer() {
 		Session session = DBUtils.getSession();
 		UserDAO dao  = new UserDAO(session);
-		List<Customer> list = dao.findCustomer();
-		for(Customer c:list){
-			System.out.println(c.getCustomerName());
-		}
+		Map list = dao.findCustomer(1, 5);
 		session.close();
 	}
 

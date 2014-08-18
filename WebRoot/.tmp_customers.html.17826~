@@ -20,6 +20,10 @@
 	<script type="text/javascript" src="script/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="script/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript">
+		
+		$(function(){
+			
+		})
 
 		//验证中文
 		$.extend($.fn.validatebox.defaults.rules,{
@@ -48,7 +52,7 @@
 		
 		$(function(){
 			$("#gridCustomer").datagrid({
-				url : "#",
+				url : "findallc",
 				fit : true,
 				border : false,
 				singleSelect:true,

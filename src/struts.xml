@@ -5,7 +5,6 @@
 <struts>
 	<package name="user"  extends="struts-default" namespace="/">
 		<action name="findallc" class="com.csg.jlyds.action.UserAction" method="findallcustomers">
-			<result name ="success" >/index.html</result>
 		</action>
 	</package>
 </struts>
